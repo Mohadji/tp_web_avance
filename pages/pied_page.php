@@ -1,5 +1,8 @@
 <div class="rightbar-overlay"></div>
 
+        <!-- js Lib -->
+        <script src="assets/js/jquery.js"></script>
+
         <!-- Vendor js -->
         <script src="assets/js/vendor.min.js"></script>
 

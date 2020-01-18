@@ -6,11 +6,10 @@
 	//*function de selection de toutes les actions dans la base de donnee
 	function select_toute_actions(){
 	    $pdo = $GLOBALS['connexion'];
-	    $select = $pdo->query("SELECT g.id_groupe_action,g.icon,g.libelle_group_action, a.id_action, a.libelle_action, a.description_action
-	                            FROM actions a, group_action g
-	                            WHERE a.id_group_action=g.id_group_action
-	                            order by libelle_group_action");
-	    return $select;
+	    $affichage = $pdo->query("SELECT a.id_action as id_action,libelle_action,description_action, g.id_group_action as 								id_group_action,libelle_group_action FROM actions a, group_action g WHERE a.id_group_action = 							g.id_group_action ORDER BY libelle_group_action");
+	    return $affichage;
 	}//fin fonction select_action
+
+	
 
  ?>
