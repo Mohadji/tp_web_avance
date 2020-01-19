@@ -1,5 +1,6 @@
+
 <?php 
-    
+    session_start();
     //connexion a la base de donnee
     require_once('Connexion_bd/bdd.php');
 
@@ -15,11 +16,93 @@
     }else {
         $erreur_champ = $_GET['erreur_champ'];
     }
+    
+    if (isset($_POST['cnx'])) 
+    {
+        if (!empty($_POST['login']) AND !empty($_POST['mdp'])) 
+        {
+            $login = htmlspecialchars($_POST['login']);
+            $mdp = htmlspecialchars($_POST['mdp']);
+
+            $req = $pdo->prepare('SELECT * FROM user WHERE login_user=? AND password_user=? and statut=1');
+            $req->execute(array($login,$mdp));
+
+            $verification = $req->rowCount();
+            if ($verification > 0) {
+                
+                $affichage = $req->fetch();
+
+                //creation des variable session de controle 
+                $_SESSION['id_user'] = $affichage['id_user'];
+                $_SESSION['nom_user'] = $affichage['nom_user'];
+                $_SESSION['prenom_user'] = $affichage['prenom_user'];
+                $_SESSION['email_user'] = $affichage['email'];
+                $_SESSION['login_user'] = $affichage['login_user'];
+
+                // id du profil du user qui vien de se connecter dans la table user
+                $_SESSION['id_profil'] = $affichage['id_profil'];
+
+                $id_profil = $_SESSION['id_profil'];
+
+                //**********récupération de la liste des actions du bloc congig*********************
+                $sql = "SELECT g.id_group_action, g.libelle_group_action, a.id_action , a.libelle_Action,a.url_action FROM actions a , group_action g, profil_action p WHERE 
+                    a.id_action = p.id_action AND a.id_group_action = g.id_group_action AND p.id_profil = $id_profil
+                    AND g.bloc_menu = 'config' order by libelle_group_action asc, ordre_affichage_action asc";
+
+                $resultat_donfig = $pdo->query($sql);
+
+                //creation du tableau contenant les session 
+                $_SESSION['bloc_config'] = array();
+                $i = 0;
+                foreach ($resultat_donfig as $row_config) {
+                    $_SESSION['bloc_config'][$i] = array(
+                            "id_group_action" => $row_config['id_group_action'],
+                            "icon" => $row_config['icon'],
+                            "id_action" => $row_config['id_action'],
+                            "libelle_action" => $row_config['libelle_action'],
+                            "url_action" => $row_config['url_action'],
+                            "libelle_group_action" => $row_config['libelle_group_action'],
+                    );
+                    $i++;
+                }
 
 
+                //**********récupération de la liste des actions du bloc claire*********************
+                $sql = "SELECT g.id_group_action, g.libelle_group_action, g.icon, a.id_action , a.libelle_action,a.url_action FROM actions a , group_action g, profil_action p WHERE 
+                    a.id_action = p.id_action AND a.id_group_action = g.id_group_action AND p.id_profil = $id_profil
+                    AND g.bloc_menu = 'claire' order by ordre_affichage asc, g.id_group_action,  ordre_affichage_action asc";
+
+                $resultat_claire = $pdo->query($sql);
+
+                //creation du tableau contenant les session 
+                $_SESSION['bloc_claire'] = array();
+                $i = 0;
+                foreach ($resultat_claire as $row_claire) {
+                    $_SESSION['bloc_claire'][$i] = array(
+                            "id_group_action" => $row_claire['id_group_action'],
+                            "libelle_group_action" => $row_claire['libelle_group_action'],
+                            "icon" => $row_claire['icon'],
+                            "id_action" => $row_claire['id_action'],
+                            "libelle_action" => $row_claire['libelle_action'],
+                            "url_action" => $row_claire['url_action'],
+                            "libelle_group_action" => $row_claire['libelle_group_action'],
+                    );
+                    $i++;
+                }
+                /* redirection apres la connexion de l'utilisateur*/
+                header('location:dashboard.php');
+            }else{
+                /* redirection en cas sur la page de connexion en cas d'erreur de mot de passe ou de login*/
+                header("location:index.php?error_compte=Compte ou Mot de passe incorrecte"); 
+            }
+        }else {
+            /*redirection sur la page de connexion dans le cas ou la personne n'as pas renseigner tous les champs lor de la connexion*/
+            header("location:index.php?erreur_champ=desoler les champs doivent etre renseigner...");
+        }   
+    }
 
  ?>
-
+ 
 <!DOCTYPE html>
 <html lang="en">
     
@@ -67,7 +150,7 @@
                                     <!-- <p class="text-muted mb-4 mt-3">Entrer votre Identifiant et Mot de passe pour acceder au Tableau de bord.</p> -->
                                 </div>
 
-                                <form action="Traitement/tr_connexion.php" id="form" method="post">
+                                <form action="" id="form" method="post">
 
                                     <div class="form-group mb-3">
                                         <label for="emailaddress">Identifiant</label>
@@ -87,28 +170,10 @@
                                     </div>
 
                                     <div class="form-group mb-0 text-center">
-                                        <button class="btn btn-primary btn-block" type="submit"> Connexion </button>
+                                        <button class="btn btn-primary btn-block" name="cnx" type="submit"> Connexion </button>
                                     </div>
 
                                 </form>
-
-                                <!--< div class="text-center">
-                                    <h5 class="mt-3 text-muted">Sign in with</h5>
-                                    <ul class="social-list list-inline mt-3 mb-0">
-                                        <li class="list-inline-item">
-                                            <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i class="mdi mdi-facebook"></i></a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="javascript: void(0);" class="social-list-item border-danger text-danger"><i class="mdi mdi-google"></i></a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="javascript: void(0);" class="social-list-item border-info text-info"><i class="mdi mdi-twitter"></i></a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i class="mdi mdi-github-circle"></i></a>
-                                        </li>
-                                    </ul>
-                                </div> -->
 
                             </div> <!-- end card-body -->
                         </div>

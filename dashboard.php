@@ -1,15 +1,7 @@
 <?php
     //***page tableau de bord ***//
-    session_start();
-
+    require_once('pages/controle.php');
     require_once('Connexion_bd/bdd.php');
-
-    /*on verifie que les variables de session sont renseignées*/
-    if(!isset($_SESSION['id_user']) || !isset($_SESSION['login_user']) || !isset($_SESSION['email_user']))
-    {
-      header('location:index.php?msg=Veuillez vous connecter !');
-    }
-
 ?>
 
 

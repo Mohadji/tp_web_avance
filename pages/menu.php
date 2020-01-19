@@ -8,162 +8,42 @@
             <ul class="metismenu" id="side-menu">
 
                 <li class="menu-title">Menu Principale</li>
-
+                
+            <?php 
+                $id_courant = 0;
+                $tab_claire = sizeof($_SESSION['bloc_claire']);
+                // var_dump($tab_claire);
+                // die();
+                for($i=0; $i<$tab_claire; $i++)
+                {
+                    $tab_claire = $_SESSION['bloc_claire'][$i];
+                    // var_dump($tab_claire);
+                    // die();
+                    if( $id_courant != $tab_claire['id_group_action']){
+                    // if($id_courant > 0)
+                    //    echo '</ul> </li>'; //fermeture du groupe precedent
+                ?>
                 <li>
                     <a href="javascript: void(0);">
-                        <i class="fe-users"></i>
-                        <span> Utilisateurs </span>
+                        <i class="<?= $tab_claire['icon'] ?>"></i>
+                        <span> <?= $tab_claire['libelle_group_action']  ?></span>
                         <span class="menu-arrow"></span>
                     </a>
+                    <?php
+                     }//fin if condition d'ouverture
+                    ?>
+                    <?php if(!empty($tab_claire['libelle_action'])): ?>
                     <ul class="nav-second-level" aria-expanded="false">
                         <li>
-                            <a href="apps-kanbanboard.html">Kanban Board</a>
-                        </li>
-                        <li>
-                            <a href="apps-calendar.html">Calendar</a>
-                        </li>
-                        <li>
-                            <a href="apps-contacts.html">Contacts</a>
-                        </li>
-                        <li>
-                            <a href="apps-projects.html">Projects</a>
-                        </li>
-                        <li>
-                            <a href="apps-tickets.html">Tickets</a>
-                        </li>
-                        <li>
-                            <a href="apps-companies.html">Companies</a>
+                            <a href="<?= $tab_claire['url_action'] ?>"><?= $tab_claire['libelle_action'] ?></a>
                         </li>
                     </ul>
+                    <?php endif;?>
                 </li>
-
-                <li>
-                    <a href="javascript: void(0);">
-                        <i class="fe-user-check"></i>
-                        <span> Profils</span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul class="nav-second-level" aria-expanded="false">
-                        <li>
-                            <a href="profil_add.php"> <i class="fe-plus"></i>Nouveau</a>
-                        </li>
-                        <li>
-                            <a href="apps-calendar.html">Calendar</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="javascript: void(0);">
-                        <i class="fe-user"></i>
-                        <span> Etudiants </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul class="nav-second-level" aria-expanded="false">
-                        <li>
-                            <a href="apps-kanbanboard.html">Kanban Board</a>
-                        </li>
-                        <li>
-                            <a href="apps-calendar.html">Calendar</a>
-                        </li>
-                        <li>
-                            <a href="apps-contacts.html">Contacts</a>
-                        </li>
-                        <li>
-                            <a href="apps-projects.html">Projects</a>
-                        </li>
-                        <li>
-                            <a href="apps-tickets.html">Tickets</a>
-                        </li>
-                        <li>
-                            <a href="apps-companies.html">Companies</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="javascript: void(0);">
-                        <i class="fe-package"></i>
-                        <span> Facultés </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul class="nav-second-level" aria-expanded="false">
-                        <li>
-                            <a href="apps-kanbanboard.html">Kanban Board</a>
-                        </li>
-                        <li>
-                            <a href="apps-calendar.html">Calendar</a>
-                        </li>
-                        <li>
-                            <a href="apps-contacts.html">Contacts</a>
-                        </li>
-                        <li>
-                            <a href="apps-projects.html">Projects</a>
-                        </li>
-                        <li>
-                            <a href="apps-tickets.html">Tickets</a>
-                        </li>
-                        <li>
-                            <a href="apps-companies.html">Companies</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="javascript: void(0);">
-                        <i class="fe-watch"></i>
-                        <span> Année d'Etude </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul class="nav-second-level" aria-expanded="false">
-                        <li>
-                            <a href="apps-kanbanboard.html">Kanban Board</a>
-                        </li>
-                        <li>
-                            <a href="apps-calendar.html">Calendar</a>
-                        </li>
-                        <li>
-                            <a href="apps-contacts.html">Contacts</a>
-                        </li>
-                        <li>
-                            <a href="apps-projects.html">Projects</a>
-                        </li>
-                        <li>
-                            <a href="apps-tickets.html">Tickets</a>
-                        </li>
-                        <li>
-                            <a href="apps-companies.html">Companies</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="javascript: void(0);">
-                        <i class="fe-repeat"></i>
-                        <span> Année d'Academique </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul class="nav-second-level" aria-expanded="false">
-                        <li>
-                            <a href="apps-kanbanboard.html">Kanban Board</a>
-                        </li>
-                        <li>
-                            <a href="apps-calendar.html">Calendar</a>
-                        </li>
-                        <li>
-                            <a href="apps-contacts.html">Contacts</a>
-                        </li>
-                        <li>
-                            <a href="apps-projects.html">Projects</a>
-                        </li>
-                        <li>
-                            <a href="apps-tickets.html">Tickets</a>
-                        </li>
-                        <li>
-                            <a href="apps-companies.html">Companies</a>
-                        </li>
-                    </ul>
-                </li>
+                <?php
+                    $id_courant = $tab_claire['id_group_action'];
+                    }//fin for
+                ?>
             </ul>
 
         </div>
