@@ -6,8 +6,47 @@
     require_once('pages/controle.php');
     require_once('function_manager.php');
 
+    if (!isset($_GET['type_msg'])) { $type_msg = '';} else{ $type_msg = $_GET['type_msg']; }
+    if (!isset($_GET['msg'])) { $msg = '';} else{ $msg = $_GET['msg']; }
+
     /* requete de selection de tous les action avec les groupe d'action*/
     $affichage = select_toute_actions();
+
+        /* traitement d'insertion du profil */
+        if (isset($_POST['valider_profil'])) 
+        {
+
+            if (!empty($_POST['profil_nom'])) 
+            {
+                $id_user = $_SESSION['id_user'];
+                $date = date("Y-m-d H:i:s");
+                $profil_nom = htmlspecialchars($_POST['profil_nom']);
+
+                $sql = $pdo->prepare('INSERT INTO profil(libelle_profil, created_by,created_at) VALUES(?,?,?)');
+                $sql->execute(array($profil_nom,$id_user,$date));
+
+                //recuperation de la dernier enregistrement du profile
+                $dernier = $pdo->query("SELECT max(id_profil) FROM profil");
+                $aff_dernier = $dernier->fetch();
+                $id_profil = $aff_dernier[0];
+
+                // var_dump($aff_dernier[0]);  
+
+                //recuperation des privilege cocher du profil
+                $liste_action = $_POST['liste_action'];
+                $nbr_action_coche = sizeof($liste_action);  
+
+                for($i=0; $i<$nbr_action_coche; $i++){
+                    $id_action = $liste_action[$i];
+                    $pdo->query("INSERT INTO profil_action(id_profil, id_action) VALUES ($id_profil, $id_action)");
+                }//fin for
+                
+                $msg = "Enregistré avec succès.";
+                header("location:profil_add.php?msg=$msg&type_msg=1");  
+                
+            } 
+
+        }
 
 
 ?>
@@ -40,6 +79,9 @@
                         <div class="col-12">
                             <div class="page-title-box">
                                 <div class="page-title-right">
+                                    <?php if(isset($type_msg) AND isset($msg)){ ?>
+                                        <p style="color: green"><?php echo $msg ?></p>
+                                    <?php } ?>
                                 </div>
                                 <h4 class="page-title"><i class="fe-user"></i> Profil / <i class="fe-plus-square"> Nouveau</i></h4>
                             </div>
@@ -57,7 +99,7 @@
                                 <div class="card">
                                     <div class="card-body">
 
-                                        <form>
+                                        <form method="post">
                                             <div id="progressbarwizard">
                                                 <ul class="nav nav-pills bg-secondary nav-justified form-wizard-header mb-3">
                                                     <li class="nav-item">
@@ -149,7 +191,7 @@
 
                                                                     <p class="w-75 mb-2 mx-auto">La derniere etape restante est de valider avec le bouton Enregister</p>
                                                                     <p class="w-75 mb-2 mx-auto">les privileges coché serons attribuer au profil</p>
-                                                                    <button type="submit" class="btn btn-info btn-rounded waves-effect waves-light">
+                                                                    <button type="submit" name="valider_profil" class="btn btn-info btn-rounded waves-effect waves-light">
                                                                         <span class=".btn-label">
                                                                             <i class="mdi mdi-check-all"></i> 
                                                                             Enregistrer
@@ -202,8 +244,7 @@
 
     </div>
     <!-- END wrapper -->
-        <!-- js Lib -->
-        <script src="assets/js/jquery.js"></script>
+          <script src="assets/js/jquery.js"></script>
         <script>
             
             $(document).ready(function() {
@@ -224,7 +265,7 @@
                         var $total = navigation.find('li').length;
                         var $current = index+1;
                         var $percent = ($current/$total) * 100;
-                        $('<div id="progressbarwizard"></div> .progress-bar').css({width:$percent+'%'});
+                        $('#progressbarwizard .progress-bar').css({width:$percent+'%'});
                     }});
             });
 
