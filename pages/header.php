@@ -62,7 +62,7 @@
 
     <!-- LOGO -->
     <div class="logo-box">
-        <a href="index.html" class="logo text-center">
+        <a href="dashboard.php" class="logo text-center">
             <span class="logo-lg">
                 <img src="assets/images/logo-light2.png" alt="" height="30">
                 <!-- <span class="logo-lg-text-light">UBold</span> -->

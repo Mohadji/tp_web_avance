@@ -1,6 +1,5 @@
 <?php
-    //***page tableau de bord ***//
-    session_start();
+    //***page tableau de bord ***/
 
     require_once('Connexion_bd/bdd.php');
     require_once('pages/controle.php');

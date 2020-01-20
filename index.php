@@ -85,7 +85,6 @@
                             "id_action" => $row_claire['id_action'],
                             "libelle_action" => $row_claire['libelle_action'],
                             "url_action" => $row_claire['url_action'],
-                            "libelle_group_action" => $row_claire['libelle_group_action'],
                     );
                     $i++;
                 }

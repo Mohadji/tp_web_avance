@@ -11,39 +11,32 @@
                 
             <?php 
                 $id_courant = 0;
-                $tab_claire = sizeof($_SESSION['bloc_claire']);
-                // var_dump($tab_claire);
-                // die();
-                for($i=0; $i<$tab_claire; $i++)
-                {
-                    $tab_claire = $_SESSION['bloc_claire'][$i];
-                    // var_dump($tab_claire);
-                    // die();
-                    if( $id_courant != $tab_claire['id_group_action']){
-                    // if($id_courant > 0)
-                    //    echo '</ul> </li>'; //fermeture du groupe precedent
+                $bloc_claire = sizeof($_SESSION['bloc_claire']);
+                for($i=0; $i<$bloc_claire; $i++){
+                    $bloc_claire = $_SESSION['bloc_claire'][$i];
+                    if( $id_courant != $bloc_claire['id_group_action']){
                 ?>
                 <li>
                     <a href="javascript: void(0);">
-                        <i class="<?= $tab_claire['icon'] ?>"></i>
-                        <span> <?= $tab_claire['libelle_group_action']  ?></span>
+                        <i class="<?= $bloc_claire['icon'] ?>"></i>
+                        <span> <?= $bloc_claire['libelle_group_action']  ?></span>
                         <span class="menu-arrow"></span>
                     </a>
                     <?php
                      }//fin if condition d'ouverture
                     ?>
-                    <?php if(!empty($tab_claire['libelle_action'])): ?>
-                    <ul class="nav-second-level" aria-expanded="false">
+                <ul class="nav-second-level" aria-expanded="false">
+                    <?php if(!empty($bloc_claire['libelle_action'])){ ?>
                         <li>
-                            <a href="<?= $tab_claire['url_action'] ?>"><?= $tab_claire['libelle_action'] ?></a>
+                            <a href="<?= $bloc_claire['url_action'] ?>"><?= $bloc_claire['libelle_action'] ?></a>
                         </li>
+                    <?php }?>
                     </ul>
-                    <?php endif;?>
+                    <?php
+                    $id_courant = $bloc_claire['id_group_action'];
+                        }//fin for
+                    ?>
                 </li>
-                <?php
-                    $id_courant = $tab_claire['id_group_action'];
-                    }//fin for
-                ?>
             </ul>
 
         </div>
