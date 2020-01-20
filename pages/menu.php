@@ -12,8 +12,9 @@
             <?php 
                 $id_courant = 0;
                 $bloc_claire = sizeof($_SESSION['bloc_claire']);
-                for($i=0; $i<$bloc_claire; $i++){
-                    $bloc_claire = $_SESSION['bloc_claire'][$i];
+                foreach($_SESSION['bloc_claire'] as $key => $value){
+                   // die(print_r($_SESSION['bloc_claire']));
+                    $bloc_claire = $_SESSION['bloc_claire'][$key];
                     if( $id_courant != $bloc_claire['id_group_action']){
                 ?>
                 <li>
