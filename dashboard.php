@@ -2,6 +2,8 @@
     //***page tableau de bord ***//
     require_once('pages/controle.php');
     require_once('Connexion_bd/bdd.php');
+
+    $title = "GSCHOOL || ACCUEIL";
 ?>
 
 

@@ -5,6 +5,8 @@
     require_once('pages/controle.php');
     require_once('function_manager.php');
 
+    $title = "GSCHOOL || PROFIL";
+
     if (!isset($_GET['type_msg'])) { $type_msg = '';} else{ $type_msg = $_GET['type_msg']; }
     if (!isset($_GET['msg'])) { $msg = '';} else{ $msg = $_GET['msg']; }
 
@@ -81,13 +83,15 @@
                                     <?php if(isset($type_msg) AND isset($msg)){ ?>
                                         <p style="color: green"><?php echo $msg ?></p>
                                     <?php } ?>
+                                    <a href="profil_view.php" class="btn btn-success waves-effect waves-light" >
+                                        <span class="btn-label"><i class=" mdi mdi-plus"></i></span>Consulter
+                                    </a>
                                 </div>
                                 <h4 class="page-title"><i class="fe-user"></i> Profil / <i class="fe-plus-square"> Nouveau</i></h4>
                             </div>
                         </div>
                     </div>     
                     <!-- end page title --> 
-
                    <div class="row">
                         <div class="col-sm-12">
                             <div class="card-box">

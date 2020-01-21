@@ -6,6 +6,9 @@
         <!-- Vendor js -->
         <script src="assets/js/vendor.min.js"></script>
 
+        <!-- Modal-Effect -->
+        <script src="assets/libs/custombox/custombox.min.js"></script>
+
         <!-- Plugins js-->
         <script src="assets/libs/flatpickr/flatpickr.min.js"></script>
         <script src="assets/libs/jquery-knob/jquery.knob.min.js"></script>
