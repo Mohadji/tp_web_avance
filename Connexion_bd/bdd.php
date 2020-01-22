@@ -5,7 +5,8 @@
          $hostname  = 'localhost';
          $bd_name = "gschool";
          $user_name = "root";
-         $password = "fakourou";
+         $password = "";
+         // $password = "fakourou";
 
          $connStr = "mysql:host=".$hostname.";port=3306;dbname=".$bd_name;
 

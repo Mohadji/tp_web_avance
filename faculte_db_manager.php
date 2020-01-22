@@ -9,22 +9,26 @@
 		//faire appele a la variable globale de connexion
 		$pdo = $GLOBALS['connexion'];
 
+        // die(var_dump($_POST));  
+
 		try {
 			
 			//function qui debite la transaction
 			$pdo->beginTransaction();
 
 			//la requete d'insertion ...
-			$pdo->exec("insert into faculte(nom_fac, email_fac, tel_fac, nbr_fac, statut_fac) values ('$nom_faculte', '$email_faculte', '$NumPhone_faculte', '$nbSalle_faculte', 1)");
+			$insert = $pdo->prepare("INSERT into faculte (nom_fac, email_fac, tel_fac, nbr_salle) values (?,?,?,?)");
+			$insert->execute(array($nom_faculte, $email_faculte, $NumPhone_faculte, $nbSalle_faculte));
 
 			$pdo->commit();
-			return true;
+			header('faculte_add.php?msg=Enregistrement effectuer ...');
 
 		} catch (Exception $e) {
 			// faire un retour sans aucune operation dans le cas ou rien ne marche
+			$pdo->rollback();
 			$msg = "Desoler l'Operation a echouer ! veuillez reprendre a nouveau ..."; 
 			header("faculte_add.php?msg='$msg'");
-			return false;
+			exit();
 		}
 	} // fin de la function insert_faculte
 
@@ -47,10 +51,11 @@
 			
 		} catch (Exception $e) {
 			
-			//annulation de l'operation avec un abandonne total
+			// faire un retour sans aucune operation dans le cas ou rien ne marche
+			$pdo->rollback();
 			$msg = "Desoler l'Operation a echouer ! veuillez reprendre a nouveau ..."; 
 			header("faculte_add.php?msg='$msg'");
-			return false;
+			exit();
 		}
 	} // fin de la function modification_faculte
 
@@ -70,10 +75,11 @@
 			return true;
 			
 		} catch (Exception $e) {
-			//annulation des operations
+			// faire un retour sans aucune operation dans le cas ou rien ne marche
+			$pdo->rollback();
 			$msg = "Desoler l'Operation a echouer ! veuillez reprendre a nouveau ..."; 
 			header("faculte_add.php?msg='$msg'");
-			return false;
+			exit();
 		}
 	} // fin de la function active_faculte
 
@@ -94,10 +100,11 @@
 			return true;
 			
 		} catch (Exception $e) {
-			// annulation de l'opration 
+			// faire un retour sans aucune operation dans le cas ou rien ne marche
+			$pdo->rollback();
 			$msg = "Desoler l'Operation a echouer ! veuillez reprendre a nouveau ..."; 
 			header("faculte_add.php?msg='$msg'");
-			return false;
+			exit();
 		}
 	}
  ?>

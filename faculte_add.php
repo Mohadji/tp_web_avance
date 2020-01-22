@@ -18,18 +18,15 @@
     /*requette de traitement l'ajout d'une faculté ....*/
     if (isset($_POST['envoi_fac'])) 
     {
-        // var_dump($_POST);
-        // die();  
         if (!empty($_POST['nom_fac']) AND !empty($_POST['email_fac']) AND !empty($_POST['num_fac']) AND !empty($_POST['nb_salFac'])) 
         {
+        // die(var_dump($_POST));  
             $nom_fac = htmlspecialchars($_POST['nom_fac']);      
             $email_fac = htmlspecialchars($_POST['email_fac']);      
             $num_fac = htmlspecialchars($_POST['num_fac']);      
             $nb_salFac = htmlspecialchars($_POST['nb_salFac']);   
 
             insert_faculte($nom_fac,$email_fac,$num_fac,$nb_salFac);
-
-            header('faculte_add.php?msg=Enregistrement effectuer ...');
         }  
     }
 
@@ -63,9 +60,9 @@
                             <div class="col-12">
                                 <div class="page-title-box">
                                     <div class="page-title-right">
-                                        <?php //if (!empty($msg)) {?>
+                                        <?php if (!empty($msg)) {?>
                                             <p style="color: green"><?php //echo $msg; ?></p>
-                                        <?php //} ?>
+                                        <?php } ?>
                                         <a href="faculte_liste_view.php" class="btn btn-success waves-effect waves-light" >
                                             <span class="btn-label"><i class=" mdi mdi-plus"></i></span>Consulter
                                         </a>
@@ -142,7 +139,7 @@
 
                                                 <div class="col-lg-3" style="margin-left: 38%">
                                                     <div class="card">
-                                                        <button class="btn btn-primary" name="envoi_fac" type="submit">Submit form</button>
+                                                        <button class="btn btn-primary" name="envoi_fac" type="submit">Enregistrer</button>
                                                     </div>
                                                 </div>
                                             </div>
