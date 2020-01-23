@@ -150,7 +150,7 @@
                                 <div class="card-box">
                                     <h4 class="header-title">Listes et Operations sur les Facultés</h4>
                                     <br>
-                                    <table class="table table-bordered table-hover">
+                                    <table class="table table-bordered table-hover" id="example">
                                         <thead>
                                             <th>
                                                 <i class="">#</i>

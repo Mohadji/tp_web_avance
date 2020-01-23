@@ -1,5 +1,20 @@
 <div class="rightbar-overlay"></div>
 
+
+    
+    
+    
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+       <script type="text/javascript">
+            $(document).ready(function() {
+            $('#example').DataTable( {
+                "ajax": '../ajax/data/arrays.txt'
+            } );
+        } );
+
+       </script>
         <!-- js Lib -->
         <script src="assets/js/jquery.js"></script>
 
@@ -27,6 +42,9 @@
 
         <!-- Dashboar 1 init js-->
         <script src="assets/js/pages/dashboard-1.init.js"></script>
+
+        <!-- Datatables init -->
+        <script src="assets/js/pages/datatables.init.js"></script>
 
         <!-- App js-->
         <script src="assets/js/app.min.js"></script>
