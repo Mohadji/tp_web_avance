@@ -15,6 +15,10 @@
         } );
 
        </script>
+
+       <!-- Plugin js-->
+        <script src="assets/libs/parsleyjs/parsley.min.js"></script>
+
         <!-- js Lib -->
         <script src="assets/js/jquery.js"></script>
 
@@ -45,7 +49,7 @@
 
         <!-- Datatables init -->
         <script src="assets/js/pages/datatables.init.js"></script>
-
+        
         <!-- App js-->
         <script src="assets/js/app.min.js"></script>
         

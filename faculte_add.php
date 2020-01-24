@@ -115,7 +115,7 @@
                                                         <div class="card-body">
                                                             <div class="form-group position-relative mb-3">
                                                                 <label for="validationTooltip01">Numéro Télephone</label>
-                                                                <input type="number" name="num_fac" class="form-control" id="validationTooltip01" placeholder="Entrer le Numéro telephone" value="" required>
+                                                                <input type="number" name="num_fac" class="form-control" id="validationTooltip01" placeholder="Entrer le Numéro telephone" required>
                                                                 <div class="valid-tooltip">
                                                                     Cela semble correcte!
                                                                 </div>
